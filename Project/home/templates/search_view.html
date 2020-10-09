@@ -1,7 +1,7 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <h1>StockTracker Search</h1>
+    <h2>Search</h2>
     <hr>
     <form action="" method="GET" value="{{ request.GET.q }}">
         <datalist id="tickers">
@@ -14,7 +14,6 @@
         {% else %}
             Search: <input list="tickers" type="text" name="q" placeholder="Search...">
         {% endif %}
-        <input name="submit" type="submit" value="Search">
         <select name="filter" class="form-control">
             {% for val, text in filters %}
                 {% if val == curr_filter %}
@@ -24,9 +23,11 @@
                 {% endif %}
             {% endfor %}
         </select>
+        <input name="submit" type="submit" value="Search">
     </form>
-    {% if submitbutton == 'Search' and not request.GET.q == '' %}
-        <h3>Search Results for {{ request.GET.q |upper}}</h3>
+    {% if submitbutton == 'Search' %}
+        <h3 style="margin-bottom: 0px; padding-bottom: 0px;">Search Results for {{ request.GET.q |upper}}</h3>
+        <h5 style="margin-top: 0px; padding-top: 0px;">{{ results.count }} results</h5>
         <hr>
         {% if results %}
             {% for result in results %}
